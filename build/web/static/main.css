@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+:root {
+    --bootstrap-primary: #007bff;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+footer {
+    height: 20vh;
+}
+
+.bootstrap-primary-color {
+    color: var(--bootstrap-primary);
+}
+
+.bootstrap-primary-bgcolor {
+    background-color: var(--bootstrap-primary);
+}
+
+.btn-outline-light-nav:hover {
+    color: var(--bootstrap-primary);
+}
+
+.bootstrap-primary-hr {
+    border-top: 1px dashed var(--bootstrap-primary) !important;
+}
+
+.error-alert {
+    display: none;
+}
+
+.list-group-item {
+    border: 1px dashed var(--bootstrap-primary);
+}
+
+
+/* Home page */
+.content-image {
+    height: 35vh;
+    width: 28vw;
+}
+
+.bootstrap-primary-bgcolor {
+    padding-top: 15px;
+}
+
+.footer-links-ul li a {
+    color: aliceblue !important;
+}
+
+.footer-links-ul li {
+    list-style: none !important;
+}
+
+.footer-links-ul li a:focus {
+    text-decoration: none;
+}
+
+.home-main {
+    margin-top: 10vh;
+}
+
+
+/* Signup page */
+.signup-main {
+    margin-top: 5vh;
+}
+
+#signup-form {
+    margin-top: 3vh;
+    margin-bottom: 7vh;
+}
+
+#signup-btn {
+    font-size: 20px;
+}
+
+#signup-footer {
+    margin-top: 25vh;
+}
+
+
+/* Signin page */
+.signin-main {
+    margin-top: 5vh;
+}
+
+#signin-form {
+    margin-top: 3vh;
+    margin-bottom: 7vh;
+}
+
+#signin-btn {
+    font-size: 20px;
+}
+
+#signin-footer {
+    margin-top: 50vh;
+}
+
+
+/* Todolists page */
+.mytodos-div {
+    margin-top: 2vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.todocard {
+    padding-top: 5vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    display: block;
+}
+
+/* List page */
+.mytodolist {
+    margin: auto !important;
+    width: 40vw !important;
+}
+
+#addnewtodobtn {
+    padding-right: 0;
+}
+
+#addnewtodoinput {
+    padding-left: 0;
+}
+
+#addbtn {
+    width: 100%;
+}
+
+#newtodoitem {
+    width: 100%;
+}
+
+
+/* For mobile screens */
+@media screen and (max-width: 600px) {
+
+    /* Home page */
+    .row.content {
+        display: block !important;
+        margin: auto;
+    }
+
+    .content-image {
+        height: 35vh;
+        width: 85vw;
+        display: block !important;
+    }
+
+    .content-description {
+        height: 35vh;
+        width: 88vw;
+        display: block !important;
+        height: 25vh;
+        overflow: hidden;
+    }
+
+
+    /* Signup page */
+    .signup-main {
+        margin-top: 3vh;
+    }
+
+
+
+    /* Todolists page */
+    .todolistsmain {
+        margin-bottom: 15vh;
+    }
+
+    .todocard {
+        margin: auto;
+    }
+
+
+    /* List page */
+    .mytodolist {
+        margin: auto !important;
+        width: 90vw !important;
+    }
+
+    #addbtn {
+        width: 100%;
+    }
+
+    #newtodoitem {
+        width: 100%;
+    }
+
+}
