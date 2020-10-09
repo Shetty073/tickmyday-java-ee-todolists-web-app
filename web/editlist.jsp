@@ -1,7 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +12,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="/TickMyDay">TickMyDay</a>
+        <a class="navbar-brand" href="/TickMyDay/home.jsp">TickMyDay</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -21,7 +20,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/TickMyDay">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/TickMyDay/home.jsp">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/TickMyDay/todolists.jsp">My todos <span class="sr-only">(current)</span></a>
@@ -29,6 +28,7 @@
             </ul>
             &nbsp;
             <div class="form-inline">
+                <!-- TODO: Link this button to SignOut servlet -->
                 <a class="btn btn-outline-light btn-outline-light-nav" href="#">
                     Sign out
                 </a>
@@ -39,19 +39,18 @@
 
     <main role="main" class="container todolistsmain">
         <div class="todolist-div">
-            <!-- TODO: Complete this todo lists template -->
             <div class="todocard">
                 <div class="card mytodolist" style="width: 18rem; border: 1px solid var(--bootstrap-primary);">
                     <div class="card-header bootstrap-primary-bgcolor" style="color: white;">
                         Todo list title
-                        <button class="btn btn-primary" style="padding: 0; float: right; border-radius: 5px;">
+                        <button class="btn btn-primary" style="padding: 0; float: right; border-radius: 5px;" onclick="deleteThisTodo()">
                             <img src="./static/icons/delete_forever-white-18dp.svg" style="border: 1px dashed white; border-radius: 5px; padding: 5px;">
                         </button>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Tryout mongodb</li>
-                        <li class="list-group-item">Complete backend design</li>
-                        <li class="list-group-item">Something new</li>
+                        <li class="list-group-item todolist-item-complete" id="">Tryout mongodb</li>
+                        <li class="list-group-item todolist-item-complete" id="">Complete backend design</li>
+                        <li class="list-group-item todolist-item-complete" id="">Something new</li>
                     </ul>
                     <div class="row">
                         <div class="col-2" id="addnewtodobtn">
@@ -76,6 +75,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
     </script>
+    <script src="./static/purify.js/purify.min.js"></script>
     <script src="./static/main.js"></script>
 </body>
 
