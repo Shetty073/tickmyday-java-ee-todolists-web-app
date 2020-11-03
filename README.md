@@ -26,6 +26,10 @@
 ![Screenshot 2](screens/2.png)
 
 
+## TODOs:
+
+* Sanitize user input
+* Update readme with dependency information (I have not used maven)
 
 > I will upload PC screenshots some time later
 
