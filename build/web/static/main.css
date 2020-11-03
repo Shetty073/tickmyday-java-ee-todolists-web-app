@@ -41,6 +41,22 @@ footer {
     border: 1px dashed var(--bootstrap-primary);
 }
 
+.todoslisthome {
+    overflow: hidden;
+}
+
+.todoslisthome:nth-child(4)::after {
+  content: "click for more..";
+  float: right;
+  font-weight: bold;
+  padding-top: 2px;
+  color: var(--bootstrap-primary);
+}
+
+.todoslisthome:nth-of-type(1n+5) {
+  display: none;
+}
+
 
 /* Home page */
 .content-image {

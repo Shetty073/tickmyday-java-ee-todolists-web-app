@@ -66,7 +66,10 @@
             <c:forEach var="todolist" items="${todolistsrs.rows}">
                 <div class="todocard">
                     <div class="card" style="width: 18rem; border: 1px solid var(--bootstrap-primary);">
-                        <a class="todoanchor" href="/TickMyDay/editlist.jsp?editId=${todolist.id}">
+                        <c:url value="/editlist.jsp" var="todolistIdURL">
+                            <c:param name="todolistId" value="${todolist.id}"/>
+                        </c:url>
+                        <a class="todoanchor" href="${todolistIdURL}">
                             <div class="card-header bootstrap-primary-bgcolor" style="color: white;">
                                 ${todolist.title}
                             </div>
@@ -75,7 +78,7 @@
                                     SELECT * from todos WHERE todolist_id=${todolist.id};
                                 </sql:query>
                                 <c:forEach var="todo" items="${todosrs.rows}">
-                                    <li class="list-group-item">${todo.todo}</li>
+                                    <li class="list-group-item todoslisthome">${todo.todo}</li>
                                 </c:forEach>
                             </ul>
                         </a>

@@ -20,6 +20,14 @@
         <servlet-name>UpdateTodoList</servlet-name>
         <servlet-class>com.example.todolistsapp.UpdateTodoList</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteTodoList</servlet-name>
+        <servlet-class>com.example.todolistsapp.UpdateTodoList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteSingleTodoItem</servlet-name>
+        <servlet-class>com.example.todolistsapp.DeleteSingleTodoItem</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignUp</servlet-name>
         <url-pattern>/SignUp</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>UpdateTodoList</servlet-name>
         <url-pattern>/UpdateTodoList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteTodoList</servlet-name>
+        <url-pattern>/DeleteTodoList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteSingleTodoItem</servlet-name>
+        <url-pattern>/DeleteSingleTodoItem</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

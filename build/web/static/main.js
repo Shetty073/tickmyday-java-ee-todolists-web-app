@@ -1,6 +1,5 @@
 // todolist page
 let editFlag = false;
-
 $('.todolist-item-complete').on('dblclick', function () {
     if (editFlag === false) {
         $(this).css('text-decoration', 'line-through');
@@ -11,21 +10,12 @@ $('.todolist-item-complete').on('dblclick', function () {
             $(this).css('display', 'none');
         }, 1000);
     }
+    
+    fetch(`/TickMyDay/DeleteSingleTodoItem?todoId=${$(this)[0].id}&todolistId=${$(this)[0].classList[2]}`, {
+        method: 'POST'
+    });
+    
 });
-
-function deleteThisTodo() {
-    
-}
-
-function addNewTodoItem() {
-    let newTododItem = $('#newtodoitem').val();
-
-
-    // send AJAX call for adding this new todo
-    
-}
-
-
 
 // addnewtodo page
 let todoItems = [];
