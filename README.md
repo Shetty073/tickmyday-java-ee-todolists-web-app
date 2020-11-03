@@ -18,9 +18,12 @@
 ##### Note: This app is 100% responsive thanks to bootstrap and some of my CSS
 
 * Mobile screens:
-![Kiku](images/Kiku.jpg)
 
+![Screenshot 0](screens/0.png)
 
+![Screenshot 1](screens/1.png)
+
+![Screenshot 2](screens/2.png)
 
 
 
