@@ -31,6 +31,8 @@
 * Sanitize user input
 * Update readme with dependency information (I have not used maven)
 
+## Special hat tip to [unDraw](https://undraw.co) and it's creator [Katerina Limpitsouni](https://twitter.com/NinaLimpi?s=09) for all of the beautiful illustrations
+
 > I will upload PC screenshots some time later
 
 
