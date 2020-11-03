@@ -1,9 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 
 <%-- Check if the user is logged in using HttpSession --%>
-<c:if test="${userScope.userid == null}">
-    ${response.sendRedirect("signin.jsp")}
+<c:if test="${sessionScope.userid == null}">
+    <c:redirect url="signin.jsp" />
 </c:if>
 
 <!DOCTYPE html>
@@ -37,13 +38,17 @@
             &nbsp;
             <div class="form-inline">
                 <!-- TODO: Link this button to SignOut servlet -->
-                <a class="btn btn-outline-light btn-outline-light-nav" href="#">
+                <a class="btn btn-outline-light btn-outline-light-nav" href="/TickMyDay/SignOut">
                     Sign out
                 </a>
             </div>
         </div>
     </nav>
 
+    <sql:setDataSource var="db" driver="${initParam['dbDriver']}"
+                       url="${initParam['dbUrl']}${initParam['dbName']}"
+                       user="${initParam['dbUsername']}"
+                       password="${initParam['dbPass']}" />
 
     <main role="main" class="container todolistsmain">
         <div class="todolist-div">
@@ -52,22 +57,28 @@
                     <div class="card-header bootstrap-primary-bgcolor" style="color: white;">
                         Create a new todo list
                     </div>
-                    <form class="container" method="" action="">
+                    <form method="post" action="CreateNewTodoList" class="container">
                         <br>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Todo list title">
+                            <input type="text" class="form-control" name="title" id="todoTitle" placeholder="Todo list title" required>
                         </div>
                         <hr class="dashed-primary-hr">
-                        <div class="input-group mb-3 list-btn-txtbox" id="list-btn-txtbox1">
+                        
+                        <div class="input-group mb-3 list-btn-txtbox" id="todos">
                             <div class="input-group-prepend">
-                                <button class="btn btn-primary rowbtn addnewtextfieldbtn" id="addnewtextfieldbtn1" onclick="addAnotherListBtnTextBox()">+</button>
+                                <button type="button" class="btn btn-primary rowbtn addnewtextfieldbtn" onclick="addTodoItem()">+</button>
                             </div>
-                            <input type="text" class="form-control formGroupExampleInput" id="formGroupExampleInput1" placeholder="Add item">
+                            <input type="text" class="form-control formGroupExampleInput" id="todoItem" placeholder="Add item">
                         </div>
                         <div class="row btnsrow">
-                            <button class="btn btn-primary rowbtn" id="savetodolistbtn" onclick="saveTodoList()">Save</button>
-                            <button class="btn btn-primary rowbtn" id="cancelandgoback" onclick="cancel()">Cancel</button>
+                            <button type="submit" class="btn btn-primary rowbtn" id="savetodolistbtn">Save</button>
+                            <a class="btn btn-primary rowbtn" id="cancelandgoback" href="todolists.jsp">Cancel</a>
                         </div>
+                        <c:if test="${requestScope.createtodoerror}">
+                            <div class="alert alert-danger" role="alert">
+                                    ${requestScope["msg"]}
+                            </div>
+                        </c:if>
                     </form>
                 </div>
             </div>

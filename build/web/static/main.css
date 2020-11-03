@@ -163,6 +163,9 @@ footer {
     border-top: 1px dashed var(--bootstrap-primary);
 }
 
+.createtododisabled {
+    width: 100% !important;
+}
 
 
 

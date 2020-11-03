@@ -1,9 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 
 <%-- Check if the user is logged in using HttpSession --%>
-<c:if test="${userScope.userid == null}">
-    ${response.sendRedirect("signin.jsp")}
+<c:if test="${sessionScope.userid == null}">
+    <c:redirect url="signin.jsp" />
 </c:if>
 
 <!DOCTYPE html>
@@ -42,82 +43,45 @@
             &nbsp;
             <div class="form-inline">
                 <!-- TODO: Link this button to SignOut servlet -->
-                <a class="btn btn-outline-light btn-outline-light-nav" href="#"> 
+                <a class="btn btn-outline-light btn-outline-light-nav" href="/TickMyDay/SignOut"> 
                     Sign out
                 </a>
             </div>
         </div>
     </nav>
 
+    <sql:setDataSource var="db" driver="${initParam['dbDriver']}"
+                       url="${initParam['dbUrl']}${initParam['dbName']}"
+                       user="${initParam['dbUsername']}"
+                       password="${initParam['dbPass']}" />
 
+    <sql:query dataSource="${db}" var="todolistsrs">
+        SELECT * from todolists WHERE user_id=${sessionScope.userid};
+    </sql:query>
 
     <main role="main" class="container todolistsmain">
         <br>
         <a href="/TickMyDay/addnewtodo.jsp" class="btn btn-primary container">+ Add new todo list</a>
         <div class="mytodos-div">
-            <!-- TODO: Add querystring to the href -->
-            <div class="todocard">
-                <div class="card" style="width: 18rem; border: 1px solid var(--bootstrap-primary);">
-                    <a class="todoanchor" href="/TickMyDay/editlist.jsp">
-                        <div class="card-header bootstrap-primary-bgcolor" style="color: white;">
-                            Todo list title
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Tryout mongodb</li>
-                            <li class="list-group-item">Complete backend design</li>
-                            <li class="list-group-item">Something new</li>
-                        </ul>
-                    </a>
-                </div>
-            </div>
-            <div class="todocard">
-                <div class="card" style="width: 18rem; border: 1px solid var(--bootstrap-primary);">
-                    <div class="card-header bootstrap-primary-bgcolor" style="color: white;">
-                        Todo list title
+            <c:forEach var="todolist" items="${todolistsrs.rows}">
+                <div class="todocard">
+                    <div class="card" style="width: 18rem; border: 1px solid var(--bootstrap-primary);">
+                        <a class="todoanchor" href="/TickMyDay/editlist.jsp?editId=${todolist.id}">
+                            <div class="card-header bootstrap-primary-bgcolor" style="color: white;">
+                                ${todolist.title}
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <sql:query dataSource="${db}" var="todosrs">
+                                    SELECT * from todos WHERE todolist_id=${todolist.id};
+                                </sql:query>
+                                <c:forEach var="todo" items="${todosrs.rows}">
+                                    <li class="list-group-item">${todo.todo}</li>
+                                </c:forEach>
+                            </ul>
+                        </a>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Tryout mongodb</li>
-                        <li class="list-group-item">Complete backend design</li>
-                        <li class="list-group-item">Something new</li>
-                    </ul>
                 </div>
-            </div>
-            <div class="todocard">
-                <div class="card" style="width: 18rem; border: 1px solid var(--bootstrap-primary);">
-                    <div class="card-header bootstrap-primary-bgcolor" style="color: white;">
-                        Todo list title
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Tryout mongodb</li>
-                        <li class="list-group-item">Complete backend design</li>
-                        <li class="list-group-item">Something new</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="todocard">
-                <div class="card" style="width: 18rem; border: 1px solid var(--bootstrap-primary);">
-                    <div class="card-header bootstrap-primary-bgcolor" style="color: white;">
-                        Todo list title
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Tryout mongodb</li>
-                        <li class="list-group-item">Complete backend design</li>
-                        <li class="list-group-item">Something new</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="todocard">
-                <div class="card" style="width: 18rem; border: 1px solid var(--bootstrap-primary);">
-                    <div class="card-header bootstrap-primary-bgcolor" style="color: white;">
-                        Todo list title
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Tryout mongodb</li>
-                        <li class="list-group-item">Complete backend design</li>
-                        <li class="list-group-item">Something new</li>
-                    </ul>
-                </div>
-            </div>
+            </c:forEach>
         </div>
     </main>
 

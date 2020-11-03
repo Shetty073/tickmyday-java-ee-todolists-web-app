@@ -1,4 +1,4 @@
-// list page
+// todolist page
 let editFlag = false;
 
 $('.todolist-item-complete').on('dblclick', function () {
@@ -28,15 +28,18 @@ function addNewTodoItem() {
 
 
 // addnewtodo page
-function addAnotherListBtnTextBox() {
+let todoItems = [];
+let count = 0;
+function addTodoItem() {
+    let todoItem = $('#todoItem').val().trim();
     
-}
-
-function saveTodoList() {
-    
-}
-
-
-function cancel() {
-    
+    if (todoItem !== '') {
+        todoItems.push(todoItem);
+        let todo = `<div class="input-group mb-3 list-btn-txtbox" class="todoItems">
+        <input style="width:100%;" type='text' name='item${count++}' value='${todoItem}'>
+        </div>`;
+        
+        $('#todos').before(todo);
+    }
+    $('#todoItem').val('');
 }

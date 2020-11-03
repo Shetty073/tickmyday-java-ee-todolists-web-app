@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,11 +41,13 @@ public class SignIn extends HttpServlet {
         }
         
         // Database info
-        String dbDriver = "com.mysql.cj.jdbc.Driver";
-        String dbUrl = "jdbc:mysql://localhost:3306/";
-        String dbName = "todolistsapp";
-        String dbUsername = "root";
-        String dbPass = "root";
+        ServletContext servletContext = request.getServletContext();
+        
+        String dbDriver = servletContext.getInitParameter("dbDriver");
+        String dbUrl = servletContext.getInitParameter("dbUrl");
+        String dbName = servletContext.getInitParameter("dbName");
+        String dbUsername = servletContext.getInitParameter("dbUsername");
+        String dbPass = servletContext.getInitParameter("dbPass");
         
         Connection con = null;
         
@@ -52,35 +55,33 @@ public class SignIn extends HttpServlet {
             Class.forName(dbDriver);
             con = DriverManager.getConnection(dbUrl + dbName, dbUsername, dbPass);
             
-            String emailLookupSql = "SELECT email FROM users WHERE emailid=?";
+            String emailLookupSql = "SELECT emailid FROM users WHERE emailid=?";
             PreparedStatement selEmailPstmt = con.prepareStatement(emailLookupSql);
             
             selEmailPstmt.setString(1, email);
             
             ResultSet emailResultSet = selEmailPstmt.executeQuery();
-            
-            selEmailPstmt.close();
-            
+
             if(emailResultSet.next()) {
                 // The email id exists
-                String passowrdLookupSql = "SELECT email FROM users WHERE emailid=?";
+                String passowrdLookupSql = "SELECT * FROM users WHERE emailid=?";
                 PreparedStatement selPassPstmt = con.prepareStatement(passowrdLookupSql);
                 
                 selPassPstmt.setString(1, email);
 
                 ResultSet passResultSet = selPassPstmt.executeQuery();
-
-                selPassPstmt.close();
-                
+                passResultSet.next();
                 String userPassHash = passResultSet.getString("password");
+                int userId = passResultSet.getInt("id");
                 
-                String userId = passResultSet.getString("id");
+                selPassPstmt.close();
+                passResultSet.close();
                 
                 // Check if the passwords match
                 if(BCrypt.checkpw(password, userPassHash)) {
                     // passwords match
                     // Set the session variables
-                    HttpSession userSession = request.getSession();
+                    HttpSession userSession = request.getSession(true);
                     userSession.setAttribute("userid", userId);
                     
                     // Redirect user to todolists page
@@ -90,20 +91,27 @@ public class SignIn extends HttpServlet {
                     String errorMessage = "Email id or password is wrong";
                     request.setAttribute("signinerror", true);
                     request.setAttribute("msg", errorMessage);
-                    request.getRequestDispatcher("signup.jsp").forward(request, response);
+                    request.getRequestDispatcher("signin.jsp").forward(request, response);
                 }
-                
                 
             } else {
                 // The email does not exist in database
                 String errorMessage = "Password cannot be empty";
                 request.setAttribute("signinerror", true);
                 request.setAttribute("msg", errorMessage);
-                request.getRequestDispatcher("signup.jsp").forward(request, response);
+                request.getRequestDispatcher("signin.jsp").forward(request, response);
             }
+            
+            selEmailPstmt.close();
+            emailResultSet.close();
+            
+            con.close();
         
         } catch (SQLException | ClassNotFoundException ex) {
-        
+            String errorMessage = "Passwords do not match! Please try again";
+            request.setAttribute("signinerror", true);
+            request.setAttribute("msg", ex.getMessage());
+            request.getRequestDispatcher("signin.jsp").forward(request, response);
         }
         
     }

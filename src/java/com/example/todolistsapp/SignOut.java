@@ -12,11 +12,14 @@ import javax.servlet.http.HttpSession;
 public class SignOut extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Get the session and invalidate it
         HttpSession userSession = request.getSession();
         userSession.invalidate();
+        
+        response.sendRedirect("home.jsp");
+        
     }
 
 }

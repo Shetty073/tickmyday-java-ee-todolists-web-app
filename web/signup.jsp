@@ -3,7 +3,7 @@
 
 <%-- Check if the user is logged in and if yes then redirect to todolists page --%>
 <c:if test="${userScope.userid != null}">
-    ${response.sendRedirect("todolists.jsp")}
+    <c:redirect url="todolists.jsp" />
 </c:if>
 
 <!DOCTYPE html>
@@ -41,25 +41,25 @@
                 <div class="row">
                     <div class="col">
                         <label for="firstname">First name</label>
-                        <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First name">
+                        <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First name" required>
                     </div>
                     <div class="col">
                         <label for="lastname">Last name</label>
-                        <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last name">
+                        <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last name" required>
                     </div>
                 </div>
                 <br>
                 <div class="form-group">
                     <label for="email">Email address</label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
                 </div>
                 <div class="form-group">
                     <label for="password1">Password</label>
-                    <input type="password" class="form-control" name="password1" id="password1">
+                    <input type="password" class="form-control" name="password1" id="password1" required>
                 </div>
                 <div class="form-group">
                     <label for="password2">Confirm password</label>
-                    <input type="password" class="form-control" name="password2" id="password2">
+                    <input type="password" class="form-control" name="password2" id="password2" required>
                 </div>
         <!--    <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="terms-check">

@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,20 +27,31 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/TickMyDay/">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/TickMyDay/todolists.jsp">My todos</a>
-                </li>
+                <c:if test="${sessionScope.userid != null}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/TickMyDay/todolists.jsp">My todos</a>
+                    </li>
+                </c:if>
             </ul>
             &nbsp;
-            <div class="form-inline">
-                <a class="btn btn-outline-light btn-outline-light-nav" href="/TickMyDay/signin.jsp">
-                    Sign in
-                </a>
-                &nbsp;
-                <a class="btn btn-outline-light btn-outline-light-nav" href="/TickMyDay/signup.jsp">
-                    Sign up
-                </a>
-            </div>
+            <c:if test="${sessionScope.userid == null}">
+                <div class="form-inline">
+                    <a class="btn btn-outline-light btn-outline-light-nav" href="/TickMyDay/signin.jsp">
+                        Sign in
+                    </a>
+                    &nbsp;
+                    <a class="btn btn-outline-light btn-outline-light-nav" href="/TickMyDay/signup.jsp">
+                        Sign up
+                    </a>
+                </div>
+            </c:if>
+            <c:if test="${sessionScope.userid != null}">
+                <div class="form-inline">
+                    <a class="btn btn-outline-light btn-outline-light-nav" href="/TickMyDay/SignOut">
+                        Sign out
+                    </a>
+                </div>
+            </c:if>
         </div>
     </nav>
 

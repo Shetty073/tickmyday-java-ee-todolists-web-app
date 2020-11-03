@@ -3,7 +3,7 @@
 
 <%-- Check if the user is logged in and if yes then redirect to todolists page --%>
 <c:if test="${userScope.userid != null}">
-    ${response.sendRedirect("todolists.jsp")}
+    <c:redirect url="todolists.jsp" />
 </c:if>
 
 <!DOCTYPE html>
@@ -37,14 +37,14 @@
     <main role="main" class="container signin-main">
         <div class="signin-form-div">
             <h1 class="bootstrap-primary-color">Sign in to your account</h1>
-            <form id="signin-form">
+            <form id="signin-form" method="post" action="SignIn">
                 <div class="form-group">
                     <label for="email">Email address</label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
                 </div>
                 <div class="form-group">
                     <label for="password1">Password</label>
-                    <input type="password" class="form-control" name="password" id="password1">
+                    <input type="password" class="form-control" name="password" id="password1" required>
                 </div>
                 <c:if test="${requestScope.signinerror}">
                     <div class="alert alert-danger" role="alert">

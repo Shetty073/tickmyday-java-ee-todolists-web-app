@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -54,11 +55,13 @@ public class SignUp extends HttpServlet {
         }
         
         // Database info
-        String dbDriver = "com.mysql.cj.jdbc.Driver";
-        String dbUrl = "jdbc:mysql://localhost:3306/";
-        String dbName = "todolistsapp";
-        String dbUsername = "root";
-        String dbPass = "root";
+        ServletContext servletContext = request.getServletContext();
+        
+        String dbDriver = servletContext.getInitParameter("dbDriver");
+        String dbUrl = servletContext.getInitParameter("dbUrl");
+        String dbName = servletContext.getInitParameter("dbName");
+        String dbUsername = servletContext.getInitParameter("dbUsername");
+        String dbPass = servletContext.getInitParameter("dbPass");
         
         Connection con = null;
         
@@ -83,7 +86,6 @@ public class SignUp extends HttpServlet {
                 insertPstmt.executeUpdate();
                 
                 insertPstmt.close();
-                
                 con.close();
                 
                 request.setAttribute("signupsuccess", true);

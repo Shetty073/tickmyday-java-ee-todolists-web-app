@@ -29,7 +29,7 @@
             &nbsp;
             <div class="form-inline">
                 <!-- TODO: Link this button to SignOut servlet -->
-                <a class="btn btn-outline-light btn-outline-light-nav" href="#">
+                <a class="btn btn-outline-light btn-outline-light-nav" href="/TickMyDay/SignOut">
                     Sign out
                 </a>
             </div>
