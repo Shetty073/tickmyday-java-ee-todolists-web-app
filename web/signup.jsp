@@ -1,4 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%-- Check if the user is logged in and if yes then redirect to todolists page --%>
+<c:if test="${userScope.userid != null}">
+    ${response.sendRedirect("todolists.jsp")}
+</c:if>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,13 +61,24 @@
                     <label for="password2">Confirm password</label>
                     <input type="password" class="form-control" name="password2" id="password2">
                 </div>
-<!--                <div class="form-group form-check">
+        <!--    <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="terms-check">
                     <label class="form-check-label" for="terms-check">Check me out</label>
-                </div>-->
-                <div class="alert alert-danger error-alert" role="alert">
-                    A simple danger alertâcheck it out!
-                  </div>
+                </div>  -->
+                <c:if test="${requestScope.signuperror}">
+                    <div class="alert alert-danger" role="alert">
+                            ${requestScope["msg"]}
+                    </div>
+                </c:if>
+                <c:if test="${requestScope.signupsuccess}">
+                    <div class="alert alert-success" role="alert">
+                        Account created successfully!<br>
+                        Please wait while we redirect you to the signin page.
+                    </div>
+                    <script type="text/javascript">
+                        setTimeout(function(){document.location = '/TickMyDay/signin.jsp'}, 3000);
+                    </script>
+                </c:if>
                 <button type="submit" class="btn btn-primary" id="signup-btn">Sign up</button>
             </form>
         </div>

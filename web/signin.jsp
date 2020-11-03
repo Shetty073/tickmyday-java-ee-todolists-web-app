@@ -1,4 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%-- Check if the user is logged in and if yes then redirect to todolists page --%>
+<c:if test="${userScope.userid != null}">
+    ${response.sendRedirect("todolists.jsp")}
+</c:if>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,15 +40,17 @@
             <form id="signin-form">
                 <div class="form-group">
                     <label for="email">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
                 </div>
                 <div class="form-group">
                     <label for="password1">Password</label>
-                    <input type="password" class="form-control" id="password1">
+                    <input type="password" class="form-control" name="password" id="password1">
                 </div>
-                <div class="alert alert-danger error-alert" role="alert">
-                    A simple danger alertâcheck it out!
-                  </div>
+                <c:if test="${requestScope.signinerror}">
+                    <div class="alert alert-danger" role="alert">
+                        ${requestScope['msg']}
+                    </div>
+                </c:if>
                 <button type="submit" class="btn btn-primary" id="signin-btn">Sign in</button>
             </form>
         </div>
